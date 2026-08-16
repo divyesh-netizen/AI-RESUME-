@@ -41,30 +41,6 @@ A production-ready, full-stack **AI-powered Resume Screening & Match Scoring Saa
 ### 7. 📄 ATS Screening Report Download (.TXT / Printable)
 - Full ATS score report download with detailed breakdowns.
 
----
-
-## 🚀 How to Run on Streamlit (Recommended)
-
-### 1-Click Launch:
-Double-click `run_streamlit.bat` in the project root, or execute:
-
-```bash
-python -m streamlit run app.py --server.port 8501
-```
-
-Open your browser at: **[http://localhost:8501](http://localhost:8501)**
-
----
-
-## 🌐 How to Run the React + FastAPI Version
-
-### 1-Click Launch:
-Double-click `start.bat` in the project root:
-- **Frontend (Vite React)**: `http://localhost:5173`
-- **Backend (FastAPI)**: `http://127.0.0.1:8000` (Swagger UI at `/docs`)
-
----
-
 ## 🛠️ Architecture & Tech Stack
 
 - **UI Framework**: Streamlit (Python) with custom SaaS dark theme, glassmorphic cards, and SVG gauges.
