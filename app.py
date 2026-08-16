@@ -617,7 +617,14 @@ with tab_recruiter:
     candidates = database.get_candidates()
 
     if not candidates:
-        st.info("No candidates evaluated yet. Run a screening to save records.")
+        st.markdown("""
+        <div class="saas-card" style="text-align: center; padding: 2.75rem 1.5rem;">
+            <p style="font-size: 1.05rem; font-weight: 700; color: #ffffff; margin-bottom: 0.35rem;">The Candidate Pipeline is Currently Empty</p>
+            <p style="font-size: 0.85rem; color: #94a3b8; max-width: 520px; margin: 0 auto; line-height: 1.6;">
+                Whenever a student or applicant evaluates their resume against a job description in the <strong>Screen & Score</strong> tab, their evaluation records, match scores, and skill breakdowns will automatically populate here.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     else:
         tot = len(candidates)
         strong = len([c for c in candidates if c["overall_score"] >= 80])
