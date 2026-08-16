@@ -20,50 +20,8 @@ An intelligent, domain-agnostic resume screening and job fit evaluation tool. Ev
 - **Candidate Pipeline Database:** Saves screening history with sorting, filtering, and 1-click CSV export.
 - **Multi-Candidate Benchmark:** Compare 2 candidate resumes side-by-side against a single job description.
 
----
+## 🛠️ Architecture & Tech Stack
 
-## 🛠️ Project Structure
-
-```
-AI-RESUME/
-├── app.py               # Main Streamlit web application
-├── requirements.txt     # Python dependencies
-├── run_streamlit.bat    # Windows 1-click launcher
-├── backend/
-│   ├── database.py      # SQLite persistence layer
-│   ├── nlp_engine.py    # Universal TF-IDF & NLP matching engine
-│   └── candidates.db    # Candidate evaluation storage
-└── README.md            # Documentation
-```
-
----
-
-## 🚀 Quick Start (Local Setup)
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/divyesh-netizen/AI-RESUME-.git
-cd AI-RESUME-
-```
-
-### 2. Install dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run the Streamlit app
-```bash
-streamlit run app.py
-```
-
-Open your browser at `http://localhost:8501`.
-
----
-
-## 💻 Tech Stack
-
-- **Application Framework:** [Streamlit](https://streamlit.io/)
-- **NLP & Matching:** Scikit-learn (TF-IDF Vectorization & Semantic Cosine Similarity)
-- **Document Parsing:** PyPDF & Python-docx
-- **Database:** SQLite
-- **Language:** Python 3.9+
+- **UI Framework**: Streamlit (Python) with custom SaaS dark theme, glassmorphic cards, and SVG gauges.
+- **AI & NLP Engine**: Scikit-learn (TF-IDF Vectorizer + Cosine Similarity), 500+ Skill Taxonomy, `pypdf`, `python-docx`.
+- **Database**: SQLite (`backend/candidates.db`).
