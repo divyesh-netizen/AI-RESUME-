@@ -1,0 +1,32 @@
+[
+  {
+    "id": 6,
+    "name": "Test Candidate",
+    "email": "",
+    "phone": "",
+    "target_role": "Software Developer",
+    "overall_score": 85,
+    "match_level": "Strong Match",
+    "job_fit_score": 88,
+    "technical_score": 90,
+    "cultural_score": 80,
+    "communication_score": 82,
+    "matched_skills": [
+      "Python",
+      "SQL"
+    ],
+    "missing_skills": [
+      "Docker"
+    ],
+    "all_candidate_skills": [],
+    "all_jd_skills": [],
+    "strengths": [],
+    "weaknesses": [],
+    "ats_recommendations": [],
+    "detailed_analysis": {},
+    "resume_text": "test",
+    "job_description": "test",
+    "filename": "resume.pdf",
+    "created_at": "2026-08-16 04:50:40"
+  }
+]
