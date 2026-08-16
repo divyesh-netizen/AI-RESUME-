@@ -1,72 +1,69 @@
-# ⚡ ResumeIQ — Modern AI Resume Screening & Match Scoring SaaS (Streamlit & React)
+# 📄 ResumeIQ — Universal Resume Screening & Match Analysis
 
-A production-ready, full-stack **AI-powered Resume Screening & Match Scoring SaaS Web App** built with Python, Streamlit, and FastAPI + React.
+An intelligent, domain-agnostic resume screening and job fit evaluation tool. Evaluates candidate resumes against any target job description, highlights missing keywords, and provides actionable recommendations to optimize for ATS systems and hiring requirements.
+
+🌐 **Live Web App:** [https://ln7dbyh8zbcvenqpt6jyvj.streamlit.app/](https://ln7dbyh8zbcvenqpt6jyvj.streamlit.app/)
 
 ---
 
 ## 🌟 Key Features
 
-### 1. 📊 Intelligent AI Match Scoring
-- **Top Score Gauge**: Large animated circular SVG progress ring with dynamic match ratings (*Strong Match / Moderate / Weak Match*).
-- **Sub-Score Breakdown**: 4 hiring pillars with animated progress bars & rating chips:
-  - **Job Fit %** (Role scope, responsibilities & years of experience alignment)
-  - **Technical Skills %** (Coverage against required tech stack & tools)
-  - **Cultural Fit %** (Agile, teamwork, leadership & ownership indicators)
-  - **Communication %** (Quantifiable metrics density & active action verbs)
-
-### 2. 📋 Strengths & Areas for Growth (2-Column Grid)
-- **✅ Strengths**: Highlights verified technical proficiencies, data-backed metrics, and action verbs.
-- **⚠️ Areas for Growth**: Callouts of missing high-priority skills, passive language warnings, and ATS keyword gaps.
-
-### 3. 📑 Comprehensive Collapsible ATS Audit
-- **Mathematical Explanation**: TF-IDF cosine relevance & skill taxonomy coverage.
-- **ATS Compliance Checklist**: Formatting recommendations and impact indicators.
-- **Career Roadmap**: Suggested industry certifications (e.g. AWS, CKA, Scrum Master) & standout portfolio projects.
-- **Interactive Bullet Point Rewriter**: Before vs. After X-Y-Z formula examples.
-
-### 4. 🤖 Context-Aware AI Career Coach (Chatbot Mode)
-- Real-time conversational assistant grounded in candidate resume and target job description.
-- 1-Click Quick Prompts (*"How to reach 90%+?"*, *"What skills to add?"*, *"Am I fit for this role?"*, *"Rewrite my resume bullets"*).
-
-### 5. 👥 Recruiter Pipeline Dashboard
-- Persistent SQLite candidate database storing all past screenings.
-- Search by candidate name or target role.
-- Filter by minimum match score (80%+, 60%+, All) and skills.
-- Sort by score (High to Low) or date (Newest first).
-- 1-Click **Export to CSV**.
-
-### 6. ⚖️ Multi-Candidate Benchmark & Comparison
-- Side-by-side comparison of 2 applicants against the same job description with winner ranking.
-
-### 7. 📄 ATS Screening Report Download (.TXT / Printable)
-- Full ATS score report download with detailed breakdowns.
+- **Universal Role Compatibility:** Works across all fields and professions — Healthcare, Business, Finance, Marketing, Education, Legal, Creative, Engineering, Operations, and Trades.
+- **Match Score & Evaluation Breakdown:** Overall match index plus 4 categorical pillars:
+  - *Role Scope Fit* (Responsibility alignment)
+  - *Key Qualifications* (Hard & functional skills coverage)
+  - *Workplace & Team Alignment* (Leadership, teamwork & initiative)
+  - *Impact & Presentation* (Measurable metrics & active action verbs)
+- **Keyword Gap Analysis:** Highlights matched requirements alongside missing keywords to add.
+- **Actionable ATS Optimization:** Action verb analysis, quantifiable impact guidance, and concrete Before vs. After bullet point rewrites (X-Y-Z method).
+- **Interactive Career Advisor:** Built-in AI coaching assistant tailored to your specific application.
+- **Candidate Pipeline Database:** Saves screening history with sorting, filtering, and 1-click CSV export.
+- **Multi-Candidate Benchmark:** Compare 2 candidate resumes side-by-side against a single job description.
 
 ---
 
-## 🚀 How to Run on Streamlit (Recommended)
+## 🛠️ Project Structure
 
-### 1-Click Launch:
-Double-click `run_streamlit.bat` in the project root, or execute:
-
-```bash
-python -m streamlit run app.py --server.port 8501
+```
+AI-RESUME/
+├── app.py               # Main Streamlit web application
+├── requirements.txt     # Python dependencies
+├── run_streamlit.bat    # Windows 1-click launcher
+├── backend/
+│   ├── database.py      # SQLite persistence layer
+│   ├── nlp_engine.py    # Universal TF-IDF & NLP matching engine
+│   └── candidates.db    # Candidate evaluation storage
+└── README.md            # Documentation
 ```
 
-Open your browser at: **[http://localhost:8501](http://localhost:8501)**
+---
+
+## 🚀 Quick Start (Local Setup)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/divyesh-netizen/AI-RESUME-.git
+cd AI-RESUME-
+```
+
+### 2. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Run the Streamlit app
+```bash
+streamlit run app.py
+```
+
+Open your browser at `http://localhost:8501`.
 
 ---
 
-## 🌐 How to Run the React + FastAPI Version
+## 💻 Tech Stack
 
-### 1-Click Launch:
-Double-click `start.bat` in the project root:
-- **Frontend (Vite React)**: `http://localhost:5173`
-- **Backend (FastAPI)**: `http://127.0.0.1:8000` (Swagger UI at `/docs`)
-
----
-
-## 🛠️ Architecture & Tech Stack
-
-- **UI Framework**: Streamlit (Python) with custom SaaS dark theme, glassmorphic cards, and SVG gauges.
-- **AI & NLP Engine**: Scikit-learn (TF-IDF Vectorizer + Cosine Similarity), 500+ Skill Taxonomy, `pypdf`, `python-docx`.
-- **Database**: SQLite (`backend/candidates.db`).
+- **Application Framework:** [Streamlit](https://streamlit.io/)
+- **NLP & Matching:** Scikit-learn (TF-IDF Vectorization & Semantic Cosine Similarity)
+- **Document Parsing:** PyPDF & Python-docx
+- **Database:** SQLite
+- **Language:** Python 3.9+
