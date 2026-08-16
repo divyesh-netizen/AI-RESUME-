@@ -13,7 +13,6 @@ if BACKEND_DIR not in sys.path:
 
 import database
 import nlp_engine
-import sample_data
 
 # Initialize Database Schema
 database.init_db()
@@ -26,7 +25,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Premium SaaS Aesthetic
+# Custom CSS for Universal Premium SaaS Aesthetic
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
@@ -181,36 +180,28 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Session State Initialization
+# Session State Initialization (Clean & Neutral)
 if "current_result" not in st.session_state:
     st.session_state.current_result = None
 if "resume_text" not in st.session_state:
-    st.session_state.resume_text = sample_data.SAMPLE_DATA["frontend_dev"]["resume"]
+    st.session_state.resume_text = ""
 if "job_description" not in st.session_state:
-    st.session_state.job_description = sample_data.SAMPLE_DATA["frontend_dev"]["job_description"]
+    st.session_state.job_description = ""
 if "candidate_name" not in st.session_state:
-    st.session_state.candidate_name = sample_data.SAMPLE_DATA["frontend_dev"]["candidate_name"]
+    st.session_state.candidate_name = ""
 if "chat_messages" not in st.session_state:
     st.session_state.chat_messages = [
         {
             "role": "assistant",
             "content": """### 👋 Hi there! I'm your AI Resume & Career Coach.
-I have evaluated your profile against the target job description. You can ask me:
-- **"How can I boost my score to 90%+?"**
-- **"What skills should I add?"**
-- **"Am I a strong fit for this role?"**
+I can analyze your resume against any job description across any industry. You can ask me:
+- **"How can I boost my match score to 90%+?"**
+- **"What key skills or keywords am I missing?"**
+- **"Am I a strong fit for this position?"**
 - **"Rewrite my work experience bullet points"**
-- **"What certifications or projects should I pursue?"**"""
+- **"What credentials or accomplishments will strengthen my application?"**"""
         }
     ]
-
-# Helper function to load sample profile
-def load_sample_role(role_key):
-    if role_key in sample_data.SAMPLE_DATA:
-        sample = sample_data.SAMPLE_DATA[role_key]
-        st.session_state.resume_text = sample["resume"]
-        st.session_state.job_description = sample["job_description"]
-        st.session_state.candidate_name = sample["candidate_name"]
 
 # Helper to render SVG circular gauge
 def render_circular_gauge(score, label):
@@ -238,7 +229,7 @@ def render_circular_gauge(score, label):
                 <span style="font-size: 0.75rem; font-weight: 700; color: {badge_color}; text-transform: uppercase; margin-top: 4px;">{label}</span>
             </div>
         </div>
-        <span style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem; font-weight: 500;">Hybrid AI Match Index</span>
+        <span style="font-size: 0.75rem; color: #94a3b8; margin-top: 0.5rem; font-weight: 500;">Composite AI Match Score</span>
     </div>
     """
     return svg_html
@@ -254,47 +245,40 @@ with st.sidebar:
         </div>
         <div>
             <div style="font-weight: 800; font-size: 1.1rem; color: #ffffff;">ResumeIQ</div>
-            <div style="font-size: 0.7rem; color: #818cf8; font-weight: 600; text-transform: uppercase;">AI SaaS Engine</div>
+            <div style="font-size: 0.7rem; color: #818cf8; font-weight: 600; text-transform: uppercase;">Universal AI Platform</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("---")
-    st.markdown("### 🎯 1-Click Demo Profiles")
-    st.caption("Instantly test with high-fidelity real-world resumes:")
+    st.markdown("### 🌐 Universal Screening")
+    st.caption("Works for **any profession, industry, or domain** (Healthcare, Business, Education, Legal, Creative, Finance, Trades, Engineering, Operations, etc.).")
 
-    col_s1, col_s2 = st.columns(2)
-    with col_s1:
-        if st.button("⚡ Frontend Dev", use_container_width=True):
-            load_sample_role("frontend_dev")
-            st.rerun()
-    with col_s2:
-        if st.button("💻 Full Stack", use_container_width=True):
-            load_sample_role("fullstack_dev")
-            st.rerun()
-
-    if st.button("🧠 AI / ML Engineer", use_container_width=True):
-        load_sample_role("ai_engineer")
+    if st.button("🗑️ Clear All Inputs", use_container_width=True):
+        st.session_state.resume_text = ""
+        st.session_state.job_description = ""
+        st.session_state.candidate_name = ""
+        st.session_state.current_result = None
         st.rerun()
 
     st.markdown("---")
-    st.markdown("### 📊 Pipeline Summary")
+    st.markdown("### 📊 Pipeline Activity")
     candidates_in_db = database.get_candidates()
     st.metric("Total Screened Candidates", len(candidates_in_db))
     strong_matches = len([c for c in candidates_in_db if c["overall_score"] >= 80])
     st.metric("Strong Matches (80%+)", f"{strong_matches} / {len(candidates_in_db)}")
 
     st.markdown("---")
-    st.caption("⚡ Powered by TF-IDF Semantic Embeddings & 500+ Skills Taxonomy Engine.")
+    st.caption("⚡ Powered by Universal Semantic Matching & Dynamic Domain Keyword Analysis.")
 
 # ==========================================
 # MAIN HERO HEADER
 # ==========================================
 st.markdown("""
 <div class="hero-container">
-    <div class="hero-badge">⚡ Hybrid TF-IDF + 500+ Skills Taxonomy Engine</div>
-    <div class="hero-title">Screen Resumes in Seconds with AI Precision</div>
-    <div class="hero-subtitle">Upload any resume (PDF, DOCX, TXT) and job description to get instant match scores, skills gap breakdown, ATS optimization suggestions, and personalized AI coaching.</div>
+    <div class="hero-badge">⚡ Universal AI Resume Screening & Match Scoring</div>
+    <div class="hero-title">Screen Any Resume for Any Job with AI Precision</div>
+    <div class="hero-subtitle">Upload any resume (PDF, DOCX, TXT) and target job description to get instant match scores, skills gap breakdown, ATS optimization suggestions, and personalized AI coaching.</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -314,9 +298,9 @@ with tab_screen:
 
     with col_input_left:
         st.markdown("#### 1. Candidate Resume")
-        cand_name_input = st.text_input("Candidate Name (Optional)", value=st.session_state.candidate_name, placeholder="e.g. Alex Morgan")
+        cand_name_input = st.text_input("Candidate Name (Optional)", value=st.session_state.candidate_name, placeholder="e.g. Jane Doe")
         
-        upload_choice = st.radio("Input Format:", ["Paste Text", "Upload File (.PDF / .DOCX / .TXT)"], horizontal=True)
+        upload_choice = st.radio("Input Method:", ["Upload File (.PDF / .DOCX / .TXT)", "Paste Text"], horizontal=True)
         
         if upload_choice == "Upload File (.PDF / .DOCX / .TXT)":
             uploaded_file = st.file_uploader("Drop resume file here", type=["pdf", "docx", "doc", "txt"])
@@ -330,18 +314,18 @@ with tab_screen:
                 "Resume Content",
                 value=st.session_state.resume_text,
                 height=260,
-                placeholder="Paste full resume text here..."
+                placeholder="Paste full resume text here (Summary, Work Experience, Skills, Education, Achievements)..."
             )
             st.session_state.resume_text = resume_text_val
 
     with col_input_right:
         st.markdown("#### 2. Target Job Description")
-        st.caption("Paste the requirements, responsibilities & required tech stack:")
+        st.caption("Paste the requirements, responsibilities & qualifications for the target role:")
         jd_text_val = st.text_area(
             "Job Description",
             value=st.session_state.job_description,
             height=325,
-            placeholder="Paste target job description here..."
+            placeholder="Paste target job description here (Role Overview, Key Responsibilities, Required Qualifications, Core Competencies)..."
         )
         st.session_state.job_description = jd_text_val
 
@@ -353,11 +337,11 @@ with tab_screen:
 
     if screen_clicked:
         if not st.session_state.resume_text.strip():
-            st.error("Please provide resume text or upload a resume file.")
+            st.error("Please provide a resume file or paste resume text.")
         elif not st.session_state.job_description.strip():
-            st.error("Please provide a job description to screen against.")
+            st.error("Please provide a target job description to screen against.")
         else:
-            with st.spinner("Analyzing semantics, extracting keywords & computing ATS score..."):
+            with st.spinner("Analyzing semantic fit, extracting domain keywords & computing ATS score..."):
                 time.sleep(0.5)
                 analysis_res = nlp_engine.analyze_resume_vs_jd(
                     resume_text=st.session_state.resume_text,
@@ -402,11 +386,11 @@ with tab_screen:
                     {cand_name} <span style="color: #64748b; font-weight: 400;">•</span> <span style="color: #a5b4fc; font-size: 1.4rem;">{t_role}</span>
                 </h2>
                 <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem;">
-                    Evaluated with TF-IDF cosine similarity, n-gram vectorization, and 500+ skill taxonomy coverage.
+                    Evaluated with semantic relevance vectorization, functional keyword coverage, and ATS readability analysis.
                 </p>
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;">
                     <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 0.75rem; padding: 0.75rem;">
-                        <div style="font-size: 0.7rem; color: #94a3b8;">Matched Skills</div>
+                        <div style="font-size: 0.7rem; color: #94a3b8;">Matched Requirements</div>
                         <div style="font-size: 1.25rem; font-weight: 800; color: #34d399;">{len(res['matched_skills'])} <span style="font-size: 0.75rem; font-weight: 400; color: #94a3b8;">skills</span></div>
                     </div>
                     <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 0.75rem; padding: 0.75rem;">
@@ -429,7 +413,7 @@ with tab_screen:
             """, unsafe_allow_html=True)
 
         # 2. FOUR SUB-SCORE BREAKDOWN CARDS
-        st.markdown("### 📊 Four Pillars Performance Breakdown")
+        st.markdown("### 📊 Performance Breakdown Across Core Pillars")
         
         def get_sub_status(sc):
             if sc >= 80: return "Excellent", "#34d399", "rgba(16, 185, 129, 0.2)"
@@ -443,56 +427,56 @@ with tab_screen:
             st.markdown(f"""
             <div class="metric-subcard">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Job Fit</span>
+                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Job Scope Fit</span>
                     <span style="font-size: 0.7rem; font-weight: 700; color: {col}; background: {bg}; padding: 0.15rem 0.5rem; border-radius: 9999px;">{lbl}</span>
                 </div>
                 <div style="font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">{res["job_fit_score"]}%</div>
             </div>
             """, unsafe_allow_html=True)
             st.progress(res["job_fit_score"] / 100.0)
-            st.caption("Role scope & responsibilities alignment")
+            st.caption("Alignment with role responsibilities")
 
         with c_sc2:
             lbl, col, bg = get_sub_status(res["technical_score"])
             st.markdown(f"""
             <div class="metric-subcard">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Technical Skills</span>
+                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Core Qualifications</span>
                     <span style="font-size: 0.7rem; font-weight: 700; color: {col}; background: {bg}; padding: 0.15rem 0.5rem; border-radius: 9999px;">{lbl}</span>
                 </div>
                 <div style="font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">{res["technical_score"]}%</div>
             </div>
             """, unsafe_allow_html=True)
             st.progress(res["technical_score"] / 100.0)
-            st.caption("Required tech stack coverage")
+            st.caption("Required hard & functional skills")
 
         with c_sc3:
             lbl, col, bg = get_sub_status(res["cultural_score"])
             st.markdown(f"""
             <div class="metric-subcard">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Cultural Fit</span>
+                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Collaboration & Fit</span>
                     <span style="font-size: 0.7rem; font-weight: 700; color: {col}; background: {bg}; padding: 0.15rem 0.5rem; border-radius: 9999px;">{lbl}</span>
                 </div>
                 <div style="font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">{res["cultural_score"]}%</div>
             </div>
             """, unsafe_allow_html=True)
             st.progress(res["cultural_score"] / 100.0)
-            st.caption("Agile, teamwork & leadership cues")
+            st.caption("Leadership, teamwork & ownership")
 
         with c_sc4:
             lbl, col, bg = get_sub_status(res["communication_score"])
             st.markdown(f"""
             <div class="metric-subcard">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Communication</span>
+                    <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 600;">Impact & Presentation</span>
                     <span style="font-size: 0.7rem; font-weight: 700; color: {col}; background: {bg}; padding: 0.15rem 0.5rem; border-radius: 9999px;">{lbl}</span>
                 </div>
                 <div style="font-size: 1.75rem; font-weight: 800; color: #ffffff; margin-bottom: 0.5rem;">{res["communication_score"]}%</div>
             </div>
             """, unsafe_allow_html=True)
             st.progress(res["communication_score"] / 100.0)
-            st.caption("Action verbs & quantifiable metrics")
+            st.caption("Action verbs & measurable achievements")
 
         # 3. STRENGTHS & AREAS FOR GROWTH (2-COLUMN GRID)
         st.markdown("<br>", unsafe_allow_html=True)
@@ -502,23 +486,24 @@ with tab_screen:
             st.markdown("""
             <div class="glass-card">
                 <h4 style="color: #34d399; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    ✅ Key Strengths & Highlights
+                    ✅ Key Strengths & Standout Qualifications
                 </h4>
             """, unsafe_allow_html=True)
             
             for s in res.get("strengths", []):
                 st.markdown(f"• **{s['title']}:** {s['desc']}")
             
-            st.markdown("<br><strong style='font-size: 0.8rem; color: #94a3b8;'>Verified Tech Skills:</strong><br>", unsafe_allow_html=True)
-            matched_html = "".join([f"<span class='skill-badge-matched'>✓ {sk}</span>" for sk in res.get("matched_skills", [])[:10]])
-            st.markdown(matched_html, unsafe_allow_html=True)
+            if res.get("matched_skills"):
+                st.markdown("<br><strong style='font-size: 0.8rem; color: #94a3b8;'>Matched Domain Keywords:</strong><br>", unsafe_allow_html=True)
+                matched_html = "".join([f"<span class='skill-badge-matched'>✓ {sk}</span>" for sk in res.get("matched_skills", [])[:12]])
+                st.markdown(matched_html, unsafe_allow_html=True)
             st.markdown("</div>", unsafe_allow_html=True)
 
         with col_grw:
             st.markdown("""
             <div class="glass-card">
                 <h4 style="color: #fbbf24; font-weight: 800; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-                    ⚠️ Areas for Growth & Missing Skills
+                    ⚠️ Areas for Growth & Missing Keywords
                 </h4>
             """, unsafe_allow_html=True)
             
@@ -527,70 +512,70 @@ with tab_screen:
             
             if res.get("missing_skills"):
                 st.markdown("<br><strong style='font-size: 0.8rem; color: #94a3b8;'>Recommended Keywords to Add:</strong><br>", unsafe_allow_html=True)
-                missing_html = "".join([f"<span class='skill-badge-missing'>+ {sk}</span>" for sk in res.get("missing_skills", [])[:10]])
+                missing_html = "".join([f"<span class='skill-badge-missing'>+ {sk}</span>" for sk in res.get("missing_skills", [])[:12]])
                 st.markdown(missing_html, unsafe_allow_html=True)
             else:
-                st.success("🎉 No major technical keyword gaps detected!")
+                st.success("🎉 Excellent coverage! No major keyword gaps detected.")
             st.markdown("</div>", unsafe_allow_html=True)
 
         # 4. COLLAPSIBLE DETAILED ANALYSIS
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("### 📑 Detailed ATS Compliance & Career Roadmap")
 
-        with st.expander("🔍 1. Mathematical Score Calculation & Semantic Vector Analysis", expanded=True):
+        with st.expander("🔍 1. Mathematical Score Calculation & Semantic Analysis", expanded=True):
             det = res.get("detailed_analysis", {})
             st.info(det.get("score_explanation", ""))
             
             c_d1, c_d2, c_d3, c_d4 = st.columns(4)
-            c_d1.metric("TF-IDF Vector Relevance", f"{det.get('semantic_similarity_pct', 0)}%")
-            c_d2.metric("Skill Coverage Ratio", f"{det.get('skill_coverage_pct', 0)}%")
-            c_d3.metric("Action Verbs Used", f"{det.get('action_verb_count', 0)} verbs")
-            c_d4.metric("Quantifiable Metrics", f"{det.get('metrics_found_count', 0)} data points")
+            c_d1.metric("Contextual Relevance", f"{det.get('semantic_similarity_pct', 0)}%")
+            c_d2.metric("Keyword Coverage", f"{det.get('skill_coverage_pct', 0)}%")
+            c_d3.metric("Action Verbs Found", f"{det.get('action_verb_count', 0)} verbs")
+            c_d4.metric("Measurable Metrics", f"{det.get('metrics_found_count', 0)} points")
 
         with st.expander("📋 2. Priority ATS Optimization Checklist"):
             for item in res.get("ats_recommendations", []):
                 st.markdown(f"**[{item['impact']} Impact] {item['category']}:** {item['recommendation']}")
 
-        with st.expander("🏆 3. Recommended Certifications & Projects Roadmap"):
+        with st.expander("🏆 3. Recommended Professional Certifications & Roadmap"):
             det = res.get("detailed_analysis", {})
-            st.markdown("#### Recommended Industry Certifications:")
+            st.markdown("#### Recommended Industry Credentials:")
             for c in det.get("recommended_certifications", []):
                 st.markdown(f"- 🎖️ **{c}**")
             
-            st.markdown("#### Standout Portfolio Projects to Build:")
+            st.markdown("#### Recommended Portfolio & Experience Highlights:")
             for p in det.get("recommended_projects", []):
                 st.markdown(f"- 🚀 {p}")
 
         with st.expander("✍️ 4. High-Impact Bullet Point Rewriter (X-Y-Z Method)"):
             st.markdown("""
-            **Example 1: Frontend & Performance**
-            - ❌ *Standard:* Worked on the frontend UI and fixed performance issues.
-            - ✅ **Optimized:** "Spearheaded frontend re-architecture using **React** and **Tailwind CSS**, reducing initial page load time by **42%** and boosting Lighthouse performance score to 98."
+            **Example 1: Project & Operations**
+            - ❌ *Standard:* Handled daily team tasks and coordinated with different departments.
+            - ✅ **Optimized:** "Orchestrated cross-departmental initiatives across **15+ team members**, reducing project turnaround time by **28%**."
 
-            **Example 2: Backend & Database**
-            - ❌ *Standard:* Built APIs and managed databases.
-            - ✅ **Optimized:** "Engineered scalable **FastAPI** REST endpoints integrated with **PostgreSQL**, cutting database query response times by **35%** for 50k+ active users."
+            **Example 2: Client & Quality Impact**
+            - ❌ *Standard:* Responded to client inquiries and resolved issues.
+            - ✅ **Optimized:** "Managed high-priority client relationships, boosting satisfaction ratings to **96%** while maintaining a **99% on-time resolution rate**."
             """)
 
         # Download Report Section
         st.markdown("<br>", unsafe_allow_html=True)
         report_text = f"""==================================================
-RESUMEIQ AI SCREENING REPORT
+RESUMEIQ UNIVERSAL AI SCREENING REPORT
 ==================================================
 Candidate: {res['name']}
 Target Role: {res['target_role']}
 Overall Match Score: {res['overall_score']}% ({res['match_level']})
 
 FOUR PILLARS BREAKDOWN:
-- Job Fit: {res['job_fit_score']}%
-- Technical Skills: {res['technical_score']}%
-- Cultural Fit: {res['cultural_score']}%
-- Communication: {res['communication_score']}%
+- Job Scope Fit: {res['job_fit_score']}%
+- Core Qualifications: {res['technical_score']}%
+- Collaboration & Cultural Fit: {res['cultural_score']}%
+- Impact & Presentation: {res['communication_score']}%
 
-MATCHED SKILLS:
+MATCHED QUALIFICATIONS:
 {', '.join(res['matched_skills'])}
 
-MISSING SKILLS / KEYWORD GAPS:
+MISSING REQUIREMENTS / KEYWORDS:
 {', '.join(res['missing_skills'])}
 
 KEY STRENGTHS:
@@ -615,14 +600,13 @@ ATS RECOMMENDATIONS:
 # ==========================================
 with tab_recruiter:
     st.markdown("### 👥 Recruiter Pipeline Database")
-    st.caption("Browse, filter, sort, and export candidate screening records stored in SQLite.")
+    st.caption("Browse, filter, sort, and export candidate screening records across all departments and roles.")
 
     candidates = database.get_candidates()
 
     if not candidates:
         st.info("No candidates in the database yet. Run a screening to save candidate records.")
     else:
-        # Top Stats
         tot = len(candidates)
         strong = len([c for c in candidates if c["overall_score"] >= 80])
         avg = round(sum([c["overall_score"] for c in candidates]) / tot) if tot else 0
@@ -634,7 +618,6 @@ with tab_recruiter:
 
         st.markdown("---")
 
-        # Filters
         f_col1, f_col2, f_col3 = st.columns([2, 1, 1])
         with f_col1:
             search_query = st.text_input("🔍 Search Name or Role", "")
@@ -643,7 +626,6 @@ with tab_recruiter:
         with f_col3:
             sort_sel = st.selectbox("Sort By", ["Score (High to Low)", "Date (Newest First)"])
 
-        # Filter logic
         filtered_candidates = candidates
         if search_query:
             filtered_candidates = [c for c in filtered_candidates if search_query.lower() in c["name"].lower() or search_query.lower() in c["target_role"].lower()]
@@ -657,7 +639,6 @@ with tab_recruiter:
         else:
             filtered_candidates.sort(key=lambda x: x["created_at"], reverse=True)
 
-        # Render Table as DataFrame
         table_data = []
         for c in filtered_candidates:
             table_data.append({
@@ -667,16 +648,15 @@ with tab_recruiter:
                 "Overall Score": f"{c['overall_score']}%",
                 "Match Level": c["match_level"],
                 "Job Fit": f"{c['job_fit_score']}%",
-                "Tech Fit": f"{c['technical_score']}%",
-                "Cultural": f"{c['cultural_score']}%",
-                "Comm": f"{c['communication_score']}%",
+                "Qualifications": f"{c['technical_score']}%",
+                "Collaboration": f"{c['cultural_score']}%",
+                "Presentation": f"{c['communication_score']}%",
                 "Date": c["created_at"][:10] if c.get("created_at") else "N/A"
             })
 
         df_candidates = pd.DataFrame(table_data)
         st.dataframe(df_candidates, use_container_width=True, hide_index=True)
 
-        # CSV Export Button
         csv_data = df_candidates.to_csv(index=False).encode('utf-8')
         st.download_button(
             label="📊 Export Candidates to CSV",
@@ -690,60 +670,66 @@ with tab_recruiter:
 # ==========================================
 with tab_compare:
     st.markdown("### ⚖️ Multi-Candidate Benchmark & Comparison")
-    st.caption("Compare 2 applicants side-by-side against the same job description.")
+    st.caption("Paste a target job description and compare 2 candidate resumes side-by-side.")
+
+    comp_jd = st.text_area("Target Job Description for Benchmark", height=130, placeholder="Paste target job description here...")
 
     col_cmp1, col_cmp2 = st.columns(2)
     with col_cmp1:
-        c1_key = st.selectbox("Select Candidate 1", list(sample_data.SAMPLE_DATA.keys()), index=0)
+        st.markdown("**Candidate 1**")
+        c1_name = st.text_input("Name 1", "Candidate A")
+        c1_resume = st.text_area("Resume 1", height=200, placeholder="Paste Candidate A resume text...")
+
     with col_cmp2:
-        c2_key = st.selectbox("Select Candidate 2", list(sample_data.SAMPLE_DATA.keys()), index=1)
+        st.markdown("**Candidate 2**")
+        c2_name = st.text_input("Name 2", "Candidate B")
+        c2_resume = st.text_area("Resume 2", height=200, placeholder="Paste Candidate B resume text...")
 
     if st.button("🔥 Run Side-by-Side Comparison", use_container_width=True):
-        c1 = sample_data.SAMPLE_DATA[c1_key]
-        c2 = sample_data.SAMPLE_DATA[c2_key]
-        target_jd = c1["job_description"]
+        if not comp_jd.strip() or not c1_resume.strip() or not c2_resume.strip():
+            st.error("Please provide the Job Description and both candidate resumes to compare.")
+        else:
+            r1 = nlp_engine.analyze_resume_vs_jd(c1_resume, comp_jd, candidate_name_override=c1_name)
+            r2 = nlp_engine.analyze_resume_vs_jd(c2_resume, comp_jd, candidate_name_override=c2_name)
 
-        r1 = nlp_engine.analyze_resume_vs_jd(c1["resume"], target_jd, candidate_name_override=c1["candidate_name"])
-        r2 = nlp_engine.analyze_resume_vs_jd(c2["resume"], target_jd, candidate_name_override=c2["candidate_name"])
+            winner = r1 if r1["overall_score"] >= r2["overall_score"] else r2
 
-        winner = r1 if r1["overall_score"] >= r2["overall_score"] else r2
-
-        st.markdown(f"""
-        <div style="text-align: center; margin: 1.5rem 0; padding: 1rem; border-radius: 1rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">
-            <span style="font-size: 1.5rem;">🏆</span>
-            <span style="font-weight: 800; font-size: 1.2rem; color: #34d399; margin-left: 0.5rem;">Top Match: {winner['name']} ({winner['overall_score']}%)</span>
-        </div>
-        """, unsafe_allow_html=True)
-
-        col_r1, col_r2 = st.columns(2)
-        with col_r1:
             st.markdown(f"""
-            <div class="glass-card">
-                <h3>{r1['name']}</h3>
-                <p style="color: #94a3b8; font-size: 0.85rem;">{r1['target_role']}</p>
-                <h1 style="color: #818cf8; font-size: 2.5rem; font-weight: 800;">{r1['overall_score']}%</h1>
-                <p><strong>Job Fit:</strong> {r1['job_fit_score']}% | <strong>Tech:</strong> {r1['technical_score']}%</p>
-                <p><strong>Matched Skills:</strong> {', '.join(r1['matched_skills'][:5])}</p>
+            <div style="text-align: center; margin: 1.5rem 0; padding: 1rem; border-radius: 1rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">
+                <span style="font-size: 1.5rem;">🏆</span>
+                <span style="font-weight: 800; font-size: 1.2rem; color: #34d399; margin-left: 0.5rem;">Top Match: {winner['name']} ({winner['overall_score']}%)</span>
             </div>
             """, unsafe_allow_html=True)
 
-        with col_r2:
-            st.markdown(f"""
-            <div class="glass-card">
-                <h3>{r2['name']}</h3>
-                <p style="color: #94a3b8; font-size: 0.85rem;">{r2['target_role']}</p>
-                <h1 style="color: #818cf8; font-size: 2.5rem; font-weight: 800;">{r2['overall_score']}%</h1>
-                <p><strong>Job Fit:</strong> {r2['job_fit_score']}% | <strong>Tech:</strong> {r2['technical_score']}%</p>
-                <p><strong>Matched Skills:</strong> {', '.join(r2['matched_skills'][:5])}</p>
-            </div>
-            """, unsafe_allow_html=True)
+            col_r1, col_r2 = st.columns(2)
+            with col_r1:
+                st.markdown(f"""
+                <div class="glass-card">
+                    <h3>{r1['name']}</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem;">{r1['target_role']}</p>
+                    <h1 style="color: #818cf8; font-size: 2.5rem; font-weight: 800;">{r1['overall_score']}%</h1>
+                    <p><strong>Job Fit:</strong> {r1['job_fit_score']}% | <strong>Qualifications:</strong> {r1['technical_score']}%</p>
+                    <p><strong>Matched Keywords:</strong> {', '.join(r1['matched_skills'][:6])}</p>
+                </div>
+                """, unsafe_allow_html=True)
+
+            with col_r2:
+                st.markdown(f"""
+                <div class="glass-card">
+                    <h3>{r2['name']}</h3>
+                    <p style="color: #94a3b8; font-size: 0.85rem;">{r2['target_role']}</p>
+                    <h1 style="color: #818cf8; font-size: 2.5rem; font-weight: 800;">{r2['overall_score']}%</h1>
+                    <p><strong>Job Fit:</strong> {r2['job_fit_score']}% | <strong>Qualifications:</strong> {r2['technical_score']}%</p>
+                    <p><strong>Matched Keywords:</strong> {', '.join(r2['matched_skills'][:6])}</p>
+                </div>
+                """, unsafe_allow_html=True)
 
 # ==========================================
 # TAB 4: AI CAREER COACH CHATBOT
 # ==========================================
 with tab_coach:
     st.markdown("### 🤖 AI Career & Resume Coach")
-    st.caption("Interactive advice tailored directly to the candidate's resume and target job requirements.")
+    st.caption("Interactive advice tailored directly to any candidate's resume and target job requirements across any domain.")
 
     # Quick prompt buttons
     st.markdown("**Quick Prompts:**")
@@ -759,8 +745,8 @@ with tab_coach:
         )
         st.session_state.chat_messages.append({"role": "assistant", "content": reply})
 
-    if qp_cols[1].button("🛠️ What skills to add?"):
-        user_query = "What skills should I add?"
+    if qp_cols[1].button("🛠️ What keywords to add?"):
+        user_query = "What key skills or keywords should I add?"
         st.session_state.chat_messages.append({"role": "user", "content": user_query})
         reply = nlp_engine.generate_ai_chat_response(
             user_query,
@@ -800,7 +786,7 @@ with tab_coach:
             st.markdown(msg["content"])
 
     # Chat Input
-    if chat_input := st.chat_input("Ask AI Coach for resume wording, missing skills, or interview tips..."):
+    if chat_input := st.chat_input("Ask AI Coach for resume wording, missing skills, or interview tips for your target job..."):
         st.session_state.chat_messages.append({"role": "user", "content": chat_input})
         with st.chat_message("user"):
             st.markdown(chat_input)
